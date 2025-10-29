@@ -177,3 +177,7 @@
   background-color: var(--btn-hover-bg);
   border: 2px solid var(--btn-hover-border);
 }
+
+.show-effet{
+  opacity: 1;
+}
