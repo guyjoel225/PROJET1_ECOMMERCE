@@ -1,0 +1,134 @@
+:root{
+
+  /* color for the site */
+
+  --primary: #2DA9E0;
+  --primary-shade: #12789A;
+  --primary-light: #E8F7F9;
+  --seconde: #41D6C3;
+  --third: #d8d9db;
+  --third-shade: #2E2E2E;
+  --white: #FFFFFF;
+  --dark-black: #111111;
+  --orange: rgb(255, 145, 0);
+  --dark-green: rgb(50, 100, 73);
+  /* header  */
+
+  --header-bg: var(--white);
+  
+  --header-text-color: var(--primary-shade);
+  --header-hover-bg: var(--primary);
+
+  /* header hover */
+
+  --header-hover-text-color: var(--seconde);
+  --header-hover-bg: var(--third);
+
+  /* main container*/
+
+  --main-container-bg: var(--white);
+
+   /* product zone  */
+
+  --product-name-color: var(--primary-shade);
+  --product-price-color: var(--seconde);
+  --rating-ct-color: var(--primary);
+
+  /* bouton  */
+
+  --btn-bg: var(--primary);
+  --btn-text: var(--white);
+
+  --btn-hover-bg: var(--white);
+  --btn-hover-text: var(--primary);
+  --btn-hover-border: var(--seconde);
+
+  /* footer  */
+
+  --ft-bg: var(--primary-shade);
+  --ft-color: var(--white);
+  --ft-hover: var(--seconde);
+
+  /* typographie */
+
+  --font-family: 'Poppins' sans-serif;
+  --font-weight-bold: 700;
+  --font-weight-md: 600;
+  --font-weight-sm: 500;
+
+  /* effets */
+
+  --shadow-color: rgba(65,214,195,0.3);
+  --transition: all 0.3s ease;
+  --count-cart-color: #18B6A8;
+  --count-cart-color2: #FF4D4D;
+  --count-cart-color3: var(--orange);
+  --add-text-color: var(--dark-green);
+
+}
+
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html{
+  
+  font-size: 62.5%;
+}
+
+@media(max-width: 1000px){
+  html{
+        font-size: 50%;
+      }
+}
+body{
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-sm);
+  background-color: var(--third);
+}
+h3, h4{
+
+  font-weight: var(--font-weight-bold);
+}
+h3{
+  font-size: 3.2rem;
+}
+
+h4{
+  font-size: 2.8rem;
+}
+a{
+  text-decoration: none;
+}
+
+
+.logo{
+  display: block;
+  width: 70px;
+
+}
+
+.logo img{
+  max-width: 100%;
+  max-height: 100%;
+  
+}
+
+select{
+
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 4px;
+  background-color: var(--primary-light);
+  box-shadow: 0 1px 10px .6px rgba(0, 0,0,.4);
+}
+
+select:hover{
+  outline: 1px solid var(--primary-shade);
+  background-color: var(--primary);
+}
