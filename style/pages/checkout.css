@@ -148,6 +148,10 @@
   column-gap: 18px;
 }
 
+.delivery-option input{
+
+  cursor: pointer;
+}
 .delivery-date{
   font-size: 16px;
   margin-bottom: 5px;

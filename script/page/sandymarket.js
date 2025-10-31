@@ -11,7 +11,8 @@ const cart = new Cart('bd');
 
 function renderProduct(){
 
-    let cartHTML = '';
+    let productHTML = '';
+    
      products.forEach((product) =>{
       
       const cart = ` <div class="product-container">
@@ -74,11 +75,11 @@ function renderProduct(){
         >Add to Cart</button>
       </div>`
 
-      cartHTML += cart;
+      productHTML += cart;
 
     });
     
-    return cartHTML;
+    return productHTML;
   }
 
 
@@ -105,4 +106,4 @@ document.querySelector('.js-sandymarket').innerHTML = renderProduct();
 
 cart.addToCart();
 
-cart.removeFromStorage();
+// cart.removeFromStorage();
