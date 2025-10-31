@@ -5,13 +5,17 @@
   --primary: #2DA9E0;
   --primary-shade: #12789A;
   --primary-light: #E8F7F9;
+  --primary-light-shade: #b5d0d3;
   --seconde: #41D6C3;
+  --seconde-shade: #0d9986;
   --third: #d8d9db;
   --third-shade: #2E2E2E;
   --white: #FFFFFF;
   --dark-black: #111111;
   --orange: rgb(255, 145, 0);
   --dark-green: rgb(50, 100, 73);
+  --green: rgb(4, 99, 4);
+  --red: #aa0b0b;
   /* header  */
 
   --header-bg: var(--white);
