@@ -1,14 +1,19 @@
-import { currentFormat } from "../utils/money.js";
-import { deliveryOption } from "./delivery-option.js";
+import { currentFormat, itemSumPrice, totalHT } from "../utils/money.js";
+import { deliveryOption, deliveryPrice } from "./delivery-option.js";
 import { products } from "./products.js";
 import { dateTime } from "../../utils/date.js";
+import { QuantitySum } from "../utils/counter.js";
 
 
 export class Cart{
 
   cartItem = this.loadFromStorage() || [];
-
-  
+  subTotal = 0;
+  deliveryPriceValue = 0;
+  subtotalHt = 0;
+  counterQuantity = document.querySelector('.js-counter');
+  orderItemquantiy = document.querySelector('.js-quantity');
+  orderItemTotal = document.querySelector('.js-item-total');
   #localStorageKey;
   constructor(localStoragekey){
 
@@ -21,6 +26,8 @@ export class Cart{
 
     
     const addElementLists = document.querySelectorAll('.js-add-btn');
+
+    this.counterQuantity.innerHTML = QuantitySum(this.cartItem);
     
     addElementLists.forEach((addBtn) =>{
 
@@ -37,7 +44,7 @@ export class Cart{
         setTimeout(() =>{
 
         addEffet.classList.remove('show-effet');
-      }, 2000);
+        }, 2000);
 
         if(matchingItem){
 
@@ -67,7 +74,7 @@ export class Cart{
           
         }
 
-        
+         this.counterQuantity.innerHTML = QuantitySum(this.cartItem);
         this.saveFromStorage();
       });
 
@@ -77,34 +84,8 @@ export class Cart{
   };
 
 
-  deleteFromCart(){
-
-    const newCart = [];
-    const deleteBtnLists = document.querySelectorAll('.js-delete-btn');
-
-    deleteBtnLists.forEach((deleteBtn) => {
-
-      const cartId = deleteBtn.dataset.cartid;
-
-      this.cartItem.forEach((item) =>{
-
-        if(cartId !== item.productId){
-
-          newCart.push(item)
-        }
-      })
-
-      this.cartItem = newCart;
-
-    });
-    
-  }
 
 
-  displayToCart(){
-
-    let cart
-  }
   getPrivateKey(){
 
     return this.#localStorageKey;
@@ -112,8 +93,11 @@ export class Cart{
 
   renderCartProduct(){
 
+    this.loadFromStorage();
     let cartHTML = '';
 
+    this.orderItemquantiy.innerHTML = QuantitySum(this.cartItem);
+    this.orderItemTotal.innerHTML = QuantitySum(this.cartItem);
     this.cartItem.forEach((cart) =>{
 
       const itemToCat = `<div class="product-container">
@@ -130,7 +114,7 @@ export class Cart{
                   <div class="product-quantity">Quantity: <span class="quantity-value">${cart.productQuantity}</span></div>
                   <div class="update-quantity">
                     <span class="update">Update</span>
-                    <span class="delete">Delete</span>
+                    <span class="delete js-delete-item" data-itemid="${cart.productId}">Delete</span>
                   </div>
                 </div>
               </div>
@@ -148,6 +132,9 @@ export class Cart{
     })
 
     document.querySelector('.js-cart-content').innerHTML = cartHTML
+    document.querySelector('.js-shipping').innerHTML = `$${currentFormat(deliveryPrice("1"))}`;
+    this.subTotalCalculate();
+    this.totalTtc();
   }
 
   chooseDeliveryDate(){
@@ -160,15 +147,96 @@ export class Cart{
       const daynber = radio.dataset.daynumber;
 
       const itemId = radio.dataset.cartid;
+      const deliveryId = radio.dataset.dayid;
 
+      document.querySelector(`.js-date-${itemId}`).innerHTML = dateTime(7);
+      document.querySelector('.js-shipping').innerHTML = `$${currentFormat(deliveryPrice("1"))}`;
+      this.deliveryPriceValue = deliveryPrice("1");
+      this.subTotalCalculate();
+      this.totalTtc();
       radio.addEventListener('click', ()=>{
 
         document.querySelector(`.js-date-${itemId}`).innerHTML = dateTime(daynber);
+
+        document.querySelector('.js-shipping').innerHTML = `$${currentFormat(deliveryPrice(deliveryId))}`;
+        this.deliveryPriceValue = deliveryPrice(deliveryId);
+        this.subTotalCalculate();
+        this.totalTtc();
       })
     })
 
   }
 
+  deleteFromCart(){
+    
+    const deleteElement = document.querySelectorAll('.js-delete-item');
+    deleteElement.forEach((deleted) =>{
+      
+      const itemId = deleted.dataset.itemid
+
+      deleted.addEventListener('click', () => {
+
+          this.renderAfterDeleted(itemId)
+          this.chooseDeliveryDate();
+        });
+
+    })
+  }
+
+  renderAfterDeleted(itemId){
+
+    
+
+
+      const newCartItem = [];
+
+      this.cartItem.forEach((article) =>{
+
+        if(article.productId !== itemId){
+
+          newCartItem.push(article);
+
+        }
+
+        this.cartItem = newCartItem;
+
+        
+        this.counterSum();
+        this.renderCartProduct();
+        
+
+        this.saveFromStorage();
+
+      });
+      
+      this.deleteFromCart();
+  }
+
+  subTotalCalculate(){
+    this.subtotalHt = totalHT(this.deliveryPriceValue, itemSumPrice(this.cartItem));
+    const subtatlPriceHt =totalHT(this.deliveryPriceValue, itemSumPrice(this.cartItem));
+    document.querySelector(".js-priceht").innerHTML = `$${currentFormat(subtatlPriceHt)}`;
+   
+  }
+
+  totalTtc(){
+
+    const tax =  10;
+
+    const taxPiceValue = this.subtotalHt * 0.1;
+
+    const totalTTC = this.subtotalHt + taxPiceValue;
+
+    
+    document.querySelector('.js-tax-value').innerHTML = `$${currentFormat(taxPiceValue)}`;
+    document.querySelector('.js-total-ttc').innerHTML = `$${currentFormat(totalTTC)}`;
+  }
+
+  counterSum(){
+
+    document.querySelector('.js-item-money').innerHTML = `$${currentFormat(itemSumPrice(this.cartItem))}`;
+    
+  }
   saveFromStorage(){
 
     const stringFyData = JSON.stringify(this.cartItem);

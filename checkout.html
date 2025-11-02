@@ -21,7 +21,7 @@
 
     <div class="header-middle-section">
       <div class="cart-item">
-        Items(<a href="" class="cart-item-link"> <span class="quantity">3</span> item's</a> )
+        Items(<a href="" class="cart-item-link"> <span class="quantity js-quantity">3</span> item's</a> )
       </div>
     </div>
 
@@ -133,25 +133,25 @@
         <div class="payment-summary">
           <div class="order-title">your orders summary:</div>
           <div class="payment-summary-row">
-            <div class="item">Item(<span>3</span>):</div>
-            <div class="payment-summary-money">$20.89</div>
+            <div class="item">Item(<span class="js-item-total">3</span>):</div>
+            <div class="payment-summary-money js-item-money">$20.89</div>
           </div>
 
           <div class="payment-summary-row">
             <div class="shipping">Handling & Shipping:</div>
-            <div class="payment-summary-money">$4.90</div>
+            <div class="payment-summary-money js-shipping">$4.90</div>
           </div>
           <div class="payment-summary-row">
-            <div class="sub-total">Total Before Tax:</div>
-            <div class="payment-summary-money sub-total-money">$2500.90</div>
+            <div class="sub-total">Total Excluding Tax:</div>
+            <div class="payment-summary-money sub-total-money js-priceht">$2500.90</div>
           </div>
           <div class="payment-summary-row">
             <div class="tax-estimed">Estimed Tax(10%):</div>
-            <div class="payment-summary-money">$6</div>
+            <div class="payment-summary-money js-tax-value">$6</div>
           </div>
           <div class="payment-summary-row total">
-            <div class="total-text">Total After Tax:</div>
-            <div class="payment-summary-money">$31.90</div>
+            <div class="total-text">Total Included Tax:</div>
+            <div class="payment-summary-money js-total-ttc">$31.90</div>
           </div>
           <button class="place-order">Place your Orders</button>
         </div>

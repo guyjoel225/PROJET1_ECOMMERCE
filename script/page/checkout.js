@@ -8,3 +8,7 @@ card.renderCartProduct();
 
 
 card.chooseDeliveryDate();
+
+card.deleteFromCart();
+
+card.counterSum();
